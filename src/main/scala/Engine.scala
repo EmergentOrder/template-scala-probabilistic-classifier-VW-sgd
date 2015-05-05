@@ -20,7 +20,7 @@ object ClassificationEngine extends IEngineFactory {
     new Engine(
       classOf[DataSource],
       classOf[Preparator],
-      Map("logisticSGD" -> classOf[LogisticRegressionWithSGDAlgorithm]),
+      Map("VWlogisticSGD" -> classOf[VowpalLogisticRegressionWithSGDAlgorithm]),
       classOf[Serving])
   }
 }
