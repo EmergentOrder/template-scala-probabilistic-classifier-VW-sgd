@@ -8,6 +8,8 @@ import org.apache.spark.SparkContext
 import org.apache.spark.mllib.linalg.Vector
 import grizzled.slf4j.Logger
 
+import java.nio.file.{Files, Paths}
+
 import vw.VWScorer
 
 case class AlgorithmParams(
@@ -21,11 +23,11 @@ case class AlgorithmParams(
 
 // extends P2LAlgorithm because VW doesn't contain RDD.
 class VowpalLogisticRegressionWithSGDAlgorithm(val ap: AlgorithmParams)
-  extends P2LAlgorithm[PreparedData, Int, Query, PredictedResult] {
+  extends P2LAlgorithm[PreparedData, Array[Byte], Query, PredictedResult] {
 
   @transient lazy val logger = Logger[this.type]
 
-  def train(sc: SparkContext, data: PreparedData): Int = {
+  def train(sc: SparkContext, data: PreparedData): Array[Byte] = {
    
     require(!data.labeledPoints.take(1).isEmpty,
       s"RDD[labeldPoints] in PreparedData cannot be empty." +
@@ -46,12 +48,13 @@ class VowpalLogisticRegressionWithSGDAlgorithm(val ap: AlgorithmParams)
 
     val results = for (item <- inputs.collect()) yield vw.doLearnAndGetPrediction(item)  
      
-    //TODO: make VW model JVM-serializable
-    5
+    Files.readAllBytes(Paths.get(ap.modelName))
   }
 
-  def predict(anInt: Int, query: Query): PredictedResult = {
-    val vw = new VWScorer("--link logistic -i model.vw ")
+  def predict(byteArray: Array[Byte], query: Query): PredictedResult = {
+    Files.write(Paths.get(ap.modelName), byteArray)
+
+    val vw = new VWScorer("--link logistic -i " + ap.modelName)
     val pred = vw.getPrediction("|" + ap.namespace + " " + vectorToVWFormattedString(Vectors.dense(query.features))).toDouble 
 
     val result = new PredictedResult(pred)
