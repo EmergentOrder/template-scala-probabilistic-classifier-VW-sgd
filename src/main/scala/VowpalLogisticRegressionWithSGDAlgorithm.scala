@@ -47,6 +47,8 @@ class VowpalLogisticRegressionWithSGDAlgorithm(val ap: AlgorithmParams)
     //Should we run them through more than once?
 
     val results = for (item <- inputs.collect()) yield vw.doLearnAndGetPrediction(item)  
+   
+    vw.closeInstance()
      
     Files.readAllBytes(Paths.get(ap.modelName))
   }
@@ -56,7 +58,8 @@ class VowpalLogisticRegressionWithSGDAlgorithm(val ap: AlgorithmParams)
 
     val vw = new VWScorer("--link logistic -i " + ap.modelName)
     val pred = vw.getPrediction("|" + ap.namespace + " " + vectorToVWFormattedString(Vectors.dense(query.features))).toDouble 
-
+    vw.closeInstance()
+  
     val result = new PredictedResult(pred)
    
     result
