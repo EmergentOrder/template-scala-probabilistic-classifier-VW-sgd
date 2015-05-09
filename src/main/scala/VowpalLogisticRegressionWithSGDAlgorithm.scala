@@ -43,8 +43,6 @@ class VowpalLogisticRegressionWithSGDAlgorithm(val ap: AlgorithmParams)
     val inputs = for (point <- data.labeledPoints) yield (if (point.label == 0.0) "-1.0" else "1.0") + " |" + ap.namespace + " "  + vectorToVWFormattedString(point.features) 
     
     for (item <- inputs.collect()) logger.info(item)
-   
-    //Should we run them through more than once?
 
     val results = for (item <- inputs.collect()) yield vw.doLearnAndGetPrediction(item)  
    
