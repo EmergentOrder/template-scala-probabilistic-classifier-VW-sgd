@@ -1,100 +1,60 @@
-1,2 26 3
-0,0 13 28
-1,2 26 3
-1,2 26 3
-0,0 13 28
-0,1 20 45
-1,3 50 5
-1,2 26 3
-1,2 26 3
-0,0 13 28
-0,1 20 45
-0,1 20 45
-1,2 26 3
-1,2 26 3
-0,1 20 45
-1,3 50 5
-0,1 20 45
-0,0 13 28
-0,1 20 45
-1,2 26 3
-0,1 20 45
-1,2 26 3
-1,3 50 5
-0,1 20 45
-1,3 50 5
-1,3 50 5
-1,3 50 5
-1,2 26 3
-1,2 26 3
-1,2 26 3
-0,1 20 45
-1,3 50 5
-1,3 50 5
-1,3 50 5
-1,2 26 3
-0,1 20 45
-0,0 13 28
-1,2 26 3
-1,2 26 3
-0,0 13 28
-0,0 13 28
-0,1 20 45
-1,3 50 5
-0,0 13 28
-1,2 26 3
-0,1 20 45
-1,2 26 3
-1,2 26 3
-0,1 20 45
-1,3 50 5
-0,0 13 28
-1,3 50 5
-0,0 13 28
-1,3 50 5
-0,0 13 28
-1,3 50 5
-0,0 13 28
-0,1 20 45
-0,0 13 28
-1,3 50 5
-1,2 26 3
-0,1 20 45
-1,3 50 5
-1,2 26 3
-0,0 13 28
-0,1 20 45
-1,2 26 3
-1,2 26 3
-0,1 20 45
-0,1 20 45
-0,0 13 28
-1,3 50 5
-0,0 13 28
-0,0 13 28
-1,2 26 3
-0,1 20 45
-1,3 50 5
-0,1 20 45
-0,1 20 45
-0,1 20 45
-0,0 13 28
-0,0 13 28
-0,1 20 45
-1,2 26 3
-0,0 13 28
-0,0 13 28
-0,1 20 45
-0,0 13 28
-1,2 26 3
-1,2 26 3
-1,3 50 5
-0,0 13 28
-1,3 50 5
-1,2 26 3
-0,1 20 45
-1,3 50 5
-1,3 50 5
-1,2 26 3
-1,2 26 3
-0,1 20 45
+0,No more ! I despise this music
+0,this is a terrible event
+0,this is a terrible event
+1,Scala is an excellent language offering a smooth and steady learning curve for the beginner and deep flexibility for the expert
+0,No more ! I despise this music
+1,Scala is an excellent language offering a smooth and steady learning curve for the beginner and deep flexibility for the expert
+1,Scala is an excellent language offering a smooth and steady learning curve for the beginner and deep flexibility for the expert
+0,this is a terrible event
+1,I absolutely adore this coffee
+0,this is a terrible event
+1,I absolutely adore this coffee
+1,Scala is an excellent language offering a smooth and steady learning curve for the beginner and deep flexibility for the expert
+0,No more ! I despise this music
+0,this is a terrible event
+0,No more ! I despise this music
+1,I absolutely adore this coffee
+0,this is a terrible event
+1,I absolutely adore this coffee
+1,Scala is an excellent language offering a smooth and steady learning curve for the beginner and deep flexibility for the expert
+1,I absolutely adore this coffee
+1,Scala is an excellent language offering a smooth and steady learning curve for the beginner and deep flexibility for the expert
+1,Scala is an excellent language offering a smooth and steady learning curve for the beginner and deep flexibility for the expert
+0,No more ! I despise this music
+0,this is a terrible event
+0,this is a terrible event
+1,I absolutely adore this coffee
+0,No more ! I despise this music
+0,this is a terrible event
+0,No more ! I despise this music
+0,this is a terrible event
+1,Scala is an excellent language offering a smooth and steady learning curve for the beginner and deep flexibility for the expert
+1,Scala is an excellent language offering a smooth and steady learning curve for the beginner and deep flexibility for the expert
+0,this is a terrible event
+0,No more ! I despise this music
+0,No more ! I despise this music
+1,Scala is an excellent language offering a smooth and steady learning curve for the beginner and deep flexibility for the expert
+1,I absolutely adore this coffee
+0,No more ! I despise this music
+1,I absolutely adore this coffee
+0,No more ! I despise this music
+1,Scala is an excellent language offering a smooth and steady learning curve for the beginner and deep flexibility for the expert
+1,I absolutely adore this coffee
+1,I absolutely adore this coffee
+1,I absolutely adore this coffee
+1,I absolutely adore this coffee
+1,Scala is an excellent language offering a smooth and steady learning curve for the beginner and deep flexibility for the expert
+1,Scala is an excellent language offering a smooth and steady learning curve for the beginner and deep flexibility for the expert
+1,I absolutely adore this coffee
+1,Scala is an excellent language offering a smooth and steady learning curve for the beginner and deep flexibility for the expert
+1,I absolutely adore this coffee
+0,this is a terrible event
+0,No more ! I despise this music
+0,this is a terrible event
+0,this is a terrible event
+0,this is a terrible event
+1,Scala is an excellent language offering a smooth and steady learning curve for the beginner and deep flexibility for the expert
+0,No more ! I despise this music
+0,No more ! I despise this music
+0,No more ! I despise this music
+1,I absolutely adore this coffee

@@ -16,7 +16,8 @@
         "stepSize": 0.1,
         "bitPrecision": 24,
         "modelName": "model.vw",
-        "namespace": "n"
+        "namespace": "n",
+        "ngram": 1
       }
     }
   ]

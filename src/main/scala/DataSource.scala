@@ -29,7 +29,7 @@ class DataSource(val dsp: DataSourceParams)
   override
   def readTraining(sc: SparkContext): TrainingData = {
 
-    val labeledPoints: RDD[LabeledPoint] = PEventStore.aggregateProperties(
+  val labeledPoints: RDD[LabeledTextPoint] = PEventStore.aggregateProperties(
       appName = dsp.appName,
       entityType = "user",
       // only keep entities with these required properties defined
@@ -38,13 +38,7 @@ class DataSource(val dsp: DataSourceParams)
       // entity ID and its aggregated properties
       .map { case (entityId, properties) =>
         try {
-          LabeledPoint(properties.get[Double]("plan"),
-            Vectors.dense(Array(
-              properties.get[Double]("attr0"),
-              properties.get[Double]("attr1"),
-              properties.get[Double]("attr2")
-            ))
-          )
+          new LabeledTextPoint(properties.get[Double]("plan"), properties.get[String]("text")) 
         } catch {
           case e: Exception => {
             logger.error(s"Failed to get properties ${properties} of" +
@@ -67,7 +61,7 @@ class DataSource(val dsp: DataSourceParams)
     // illustration purpose, a recommended approach is to factor out this logic
     // into a helper function and have both readTraining and readEval call the
     // helper.
-    val labeledPoints: RDD[LabeledPoint] = PEventStore.aggregateProperties(
+    val labeledPoints: RDD[LabeledTextPoint] = PEventStore.aggregateProperties(
       appName = dsp.appName,
       entityType = "user",
       // only keep entities with these required properties defined
@@ -76,13 +70,7 @@ class DataSource(val dsp: DataSourceParams)
       // entity ID and its aggregated properties
       .map { case (entityId, properties) =>
         try {
-          LabeledPoint(properties.get[Double]("plan"),
-            Vectors.dense(Array(
-              properties.get[Double]("attr0"),
-              properties.get[Double]("attr1"),
-              properties.get[Double]("attr2")
-            ))
-          )
+          new LabeledTextPoint(properties.get[Double]("plan"), properties.get[String]("text")) 
         } catch {
           case e: Exception => {
             logger.error(s"Failed to get properties ${properties} of" +
@@ -95,7 +83,7 @@ class DataSource(val dsp: DataSourceParams)
 
     // K-fold splitting
     val evalK = dsp.evalK.get
-    val indexedPoints: RDD[(LabeledPoint, Long)] = labeledPoints.zipWithIndex
+    val indexedPoints: RDD[(LabeledTextPoint, Long)] = labeledPoints.zipWithIndex
 
     (0 until evalK).map { idx =>
       val trainingPoints = indexedPoints.filter(_._2 % evalK != idx).map(_._1)
@@ -105,13 +93,15 @@ class DataSource(val dsp: DataSourceParams)
         new TrainingData(trainingPoints),
         new EmptyEvaluationInfo(),
         testingPoints.map {
-          p => (new Query(p.features.toArray), new ActualResult(p.label))
+          p => (new Query(p.text), new ActualResult(p.label))
         }
       )
     }
   }
 }
 
+class LabeledTextPoint ( val label: Double, val text: String) extends Serializable
+
 class TrainingData(
-  val labeledPoints: RDD[LabeledPoint]
+  val trainingText: RDD[LabeledTextPoint]
 ) extends Serializable

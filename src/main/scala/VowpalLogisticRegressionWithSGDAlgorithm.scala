@@ -18,7 +18,8 @@ case class AlgorithmParams(
   stepSize: Double,
   bitPrecision: Int,
   modelName: String,
-  namespace: String
+  namespace: String,
+  ngram: Int
 ) extends Params
 
 // extends P2LAlgorithm because VW doesn't contain RDD.
@@ -36,13 +37,14 @@ class VowpalLogisticRegressionWithSGDAlgorithm(val ap: AlgorithmParams)
   
     val reg = "--l2 " + ap.regParam
     val iters = "-c -k --passes " + ap.maxIter
-    val lrate = "-l " + ap.stepSize 
+    val lrate = "-l " + ap.stepSize
+    val ngram = "--ngram " + ap.ngram 
   
-    val vw = new VWScorer("--loss_function logistic -b " + ap.bitPrecision + " " + "-f " + ap.modelName + " " + reg + " " + iters + " " + lrate)
+    val vw = new VWScorer("--loss_function logistic -b " + ap.bitPrecision + " " + "-f " + ap.modelName + " " + reg + " " + iters + " " + lrate + " " + ngram)
     
-    val inputs = for (point <- data.labeledPoints) yield (if (point.label == 0.0) "-1.0" else "1.0") + " |" + ap.namespace + " "  + vectorToVWFormattedString(point.features) 
+    val inputs = for (point <- data.labeledPoints) yield (if (point.label == 0.0) "-1.0" else "1.0") + " |" + ap.namespace + " "  + rawTextToVWFormattedString(point.text) 
     
-    for (item <- inputs.collect()) logger.info(item)
+    //for (item <- inputs.collect()) logger.info(item)
 
     val results = for (item <- inputs.collect()) yield vw.doLearnAndGetPrediction(item)  
    
@@ -55,12 +57,17 @@ class VowpalLogisticRegressionWithSGDAlgorithm(val ap: AlgorithmParams)
     Files.write(Paths.get(ap.modelName), byteArray)
 
     val vw = new VWScorer("--link logistic -i " + ap.modelName)
-    val pred = vw.getPrediction("|" + ap.namespace + " " + vectorToVWFormattedString(Vectors.dense(query.features))).toDouble 
+    val pred = vw.getPrediction("|" + ap.namespace + " " + rawTextToVWFormattedString(query.text)).toDouble 
     vw.closeInstance()
   
     val result = new PredictedResult(pred)
    
     result
+  }
+
+  def rawTextToVWFormattedString(str: String) : String = {
+     //VW input cannot contain these characters 
+     str.replaceAll("[|:]", " ")
   }
 
   def vectorToVWFormattedString(vec: Vector): String = {
