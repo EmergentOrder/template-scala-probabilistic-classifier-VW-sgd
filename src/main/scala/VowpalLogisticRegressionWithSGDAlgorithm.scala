@@ -60,8 +60,9 @@ class VowpalLogisticRegressionWithSGDAlgorithm(val ap: AlgorithmParams)
     val pred = vw.getPrediction("|" + ap.namespace + " " + rawTextToVWFormattedString(query.text)).toDouble 
     vw.closeInstance()
 
-    val category = (if(pred > 0.5) 1 else 0).toString 
-    val result = new PredictedResult(category, pred)
+    val category = (if(pred > 0.5) 1 else 0).toString
+    val prob = (if(pred > 0.5) pred else 1.0 - pred)
+    val result = new PredictedResult(category, prob)
    
     result
   }
