@@ -8,11 +8,12 @@ class Query(
 ) extends Serializable
 
 class PredictedResult(
-  val label: Double
+  val category: String
+  val confidence: Double
 ) extends Serializable
 
 class ActualResult(
-  val label: Double
+  val category: String
 ) extends Serializable
 
 object ClassificationEngine extends IEngineFactory {
