@@ -42,7 +42,7 @@ class VowpalLogisticRegressionWithSGDAlgorithm(val ap: AlgorithmParams)
   
     val vw = new VWScorer("--loss_function logistic -b " + ap.bitPrecision + " " + "-f " + ap.modelName + " " + reg + " " + iters + " " + lrate + " " + ngram)
     
-    val inputs = for (point <- data.labeledPoints) yield (if (point.label == 0.0) "-1.0" else "1.0") + " |" + ap.namespace + " "  + rawTextToVWFormattedString(point.text) 
+    val inputs = for (point <- data.labeledPoints) yield (if (point.category.toDouble == 0.0) "-1.0" else "1.0") + " |" + ap.namespace + " "  + rawTextToVWFormattedString(point.text) 
     
     //for (item <- inputs.collect()) logger.info(item)
 

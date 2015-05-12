@@ -33,12 +33,12 @@ class DataSource(val dsp: DataSourceParams)
       appName = dsp.appName,
       entityType = "user",
       // only keep entities with these required properties defined
-      required = Some(List("plan", "attr0", "attr1", "attr2")))(sc)
+      required = Some(List("label", "text", "category")))(sc)
       // aggregateProperties() returns RDD pair of
       // entity ID and its aggregated properties
       .map { case (entityId, properties) =>
         try {
-          new LabeledTextPoint(properties.get[String]("plan"), properties.get[String]("text")) 
+          new LabeledTextPoint(properties.get[String]("category"), properties.get[String]("text")) 
         } catch {
           case e: Exception => {
             logger.error(s"Failed to get properties ${properties} of" +
@@ -93,14 +93,14 @@ class DataSource(val dsp: DataSourceParams)
         new TrainingData(trainingPoints),
         new EmptyEvaluationInfo(),
         testingPoints.map {
-          p => (new Query(p.text), new ActualResult(p.label))
+          p => (new Query(p.text), new ActualResult(p.category))
         }
       )
     }
   }
 }
 
-class LabeledTextPoint ( val label: String, val text: String) extends Serializable
+class LabeledTextPoint ( val category: String, val text: String) extends Serializable
 
 class TrainingData(
   val trainingText: RDD[LabeledTextPoint]
