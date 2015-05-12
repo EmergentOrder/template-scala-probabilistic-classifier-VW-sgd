@@ -8,7 +8,7 @@ class Query(
 ) extends Serializable
 
 class PredictedResult(
-  val category: String
+  val category: String,
   val confidence: Double
 ) extends Serializable
 

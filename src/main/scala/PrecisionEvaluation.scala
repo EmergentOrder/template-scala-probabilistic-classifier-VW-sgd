@@ -4,7 +4,7 @@ import io.prediction.controller.OptionAverageMetric
 import io.prediction.controller.EmptyEvaluationInfo
 import io.prediction.controller.Evaluation
 
-case class Precision(category:String)
+case class Precision(category:Double)
   extends OptionAverageMetric[EmptyEvaluationInfo, Query, PredictedResult, ActualResult] {
   override def header: String = s"Precision(category = $category)"
 

@@ -59,8 +59,9 @@ class VowpalLogisticRegressionWithSGDAlgorithm(val ap: AlgorithmParams)
     val vw = new VWScorer("--link logistic -i " + ap.modelName)
     val pred = vw.getPrediction("|" + ap.namespace + " " + rawTextToVWFormattedString(query.text)).toDouble 
     vw.closeInstance()
-  
-    val result = new PredictedResult(pred)
+
+    val category = (if(pred > 0.5) 1 else 0).toString 
+    val result = new PredictedResult(category, pred)
    
     result
   }

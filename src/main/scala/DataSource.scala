@@ -38,7 +38,7 @@ class DataSource(val dsp: DataSourceParams)
       // entity ID and its aggregated properties
       .map { case (entityId, properties) =>
         try {
-          new LabeledTextPoint(properties.get[Double]("plan"), properties.get[String]("text")) 
+          new LabeledTextPoint(properties.get[String]("plan"), properties.get[String]("text")) 
         } catch {
           case e: Exception => {
             logger.error(s"Failed to get properties ${properties} of" +
@@ -70,7 +70,7 @@ class DataSource(val dsp: DataSourceParams)
       // entity ID and its aggregated properties
       .map { case (entityId, properties) =>
         try {
-          new LabeledTextPoint(properties.get[Double]("plan"), properties.get[String]("text")) 
+          new LabeledTextPoint(properties.get[String]("plan"), properties.get[String]("text")) 
         } catch {
           case e: Exception => {
             logger.error(s"Failed to get properties ${properties} of" +
@@ -93,14 +93,14 @@ class DataSource(val dsp: DataSourceParams)
         new TrainingData(trainingPoints),
         new EmptyEvaluationInfo(),
         testingPoints.map {
-          p => (new Query(p.text), new ActualResult(p.category))
+          p => (new Query(p.text), new ActualResult(p.label))
         }
       )
     }
   }
 }
 
-class LabeledTextPoint ( val label: Double, val text: String) extends Serializable
+class LabeledTextPoint ( val label: String, val text: String) extends Serializable
 
 class TrainingData(
   val trainingText: RDD[LabeledTextPoint]
