@@ -1,41 +1,49 @@
-# Classification Engine Template
+# Probabilistic Classifier Template [Vowpal Wabbit - LR/SGD] 
 
-## Documentation
+This template requires Vowpal Wabbit. The included dependency in the build.sbt has been tested on Ubuntu 14.04 only. If you encounter issues, please build VW from source, per instructions below.
 
-Please refer to http://docs.prediction.io/templates/classification/quickstart/
+For a tutorial featuring this engine template, please look [here](https://github.com/EmergentOrder/PredictionIO/blob/develop/docs/manual/source/demo/sentiment.html.md)
 
-## Versions
+## Abbreviated Vowpal Setup:
 
-### v0.3.0
+## Prerequisite software
 
-- update for PredictionIO 0.9.2, including:
+These prerequisites are usually pre-installed on many platforms. However, you may need to consult your favorite package
+manager (*yum*, *apt*, *MacPorts*, *brew*, ...) to install missing software.
 
-  - use new PEventStore API
-  - use appName in DataSource parameter
+- [Boost](http://www.boost.org) library, with the `Boost::Program_Options` library option enabled.
+- GNU *autotools*: *autoconf*, *automake*, *libtool*, *autoheader*, et. al. This is not a strict prereq. On many systems (notably Ubuntu with `libboost-dev` installed), the provided `Makefile` works fine.
 
-### v0.2.0
+## Getting the code
 
-- update build.sbt and template.json for PredictionIO 0.9.2
+```
+## For HTTP-based Git interaction
+$ git clone https://github.com/EmergentOrder/vowpal_wabbit.git
+```
 
-### v0.1.4
+## Compiling
 
-- Update Evaluation for PredictionIO 0.9.1
+You should be able to build the *vowpal wabbit* on most systems with:
+```
+$ make
+$ make test    # (optional)
+```
 
-NOTE: Require PredictionIO >= 0.9.1
+If that fails, try:
+```
+$ ./autogen.sh
+$ make
+$ make test    # (optional)
+$ make install
+```
 
-### v0.1.3
+#Vowpal Java Wrapper Build
 
-- Add missing sample data set (data/data.txt)
+```
+$ cd java
+$ mvn package
+$ cd target 
+```
 
-### v0.1.2
+Finally, substitute the jar found in `target` for the one specified in the build.sbt if needed. [currently published artifact was generated on Ubuntu 14.04]
 
-- update for PredictionIO 0.9.0
-- add sample evaluation
-
-### v0.1.1
-
-- Persist RDD to memory (.cache()) in DataSource for better performance
-
-### v0.1.0
-
-- initial version
