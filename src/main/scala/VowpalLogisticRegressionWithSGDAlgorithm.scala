@@ -10,7 +10,7 @@ import grizzled.slf4j.Logger
 
 import java.nio.file.{Files, Paths}
 
-import vw.VWScorer
+import vw.VW
 
 case class AlgorithmParams(
   maxIter: Int,
@@ -40,15 +40,15 @@ class VowpalLogisticRegressionWithSGDAlgorithm(val ap: AlgorithmParams)
     val lrate = "-l " + ap.stepSize
     val ngram = "--ngram " + ap.ngram 
   
-    val vw = new VWScorer("--loss_function logistic -b " + ap.bitPrecision + " " + "-f " + ap.modelName + " " + reg + " " + iters + " " + lrate + " " + ngram)
+    val vw = new VW("--loss_function logistic -b " + ap.bitPrecision + " " + "-f " + ap.modelName + " " + reg + " " + iters + " " + lrate + " " + ngram)
     
     val inputs = for (point <- data.labeledPoints) yield (if (point.category.toDouble == 0.0) "-1.0" else "1.0") + " |" + ap.namespace + " "  + rawTextToVWFormattedString(point.text) 
     
     //for (item <- inputs.collect()) logger.info(item)
 
-    val results = for (item <- inputs.collect()) yield vw.doLearnAndGetPrediction(item)  
+    val results = for (item <- inputs.collect()) yield vw.learn(item)  
    
-    vw.closeInstance()
+    vw.close()
      
     Files.readAllBytes(Paths.get(ap.modelName))
   }
@@ -56,9 +56,9 @@ class VowpalLogisticRegressionWithSGDAlgorithm(val ap: AlgorithmParams)
   def predict(byteArray: Array[Byte], query: Query): PredictedResult = {
     Files.write(Paths.get(ap.modelName), byteArray)
 
-    val vw = new VWScorer("--link logistic -i " + ap.modelName)
-    val pred = vw.getPrediction("|" + ap.namespace + " " + rawTextToVWFormattedString(query.text)).toDouble 
-    vw.closeInstance()
+    val vw = new VW("--link logistic -i " + ap.modelName)
+    val pred = vw.predict("|" + ap.namespace + " " + rawTextToVWFormattedString(query.text)).toDouble 
+    vw.close()
 
     val category = (if(pred > 0.5) 1 else 0).toString
     val prob = (if(pred > 0.5) pred else 1.0 - pred)
