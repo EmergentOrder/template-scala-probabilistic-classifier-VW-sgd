@@ -36,11 +36,11 @@ class VowpalLogisticRegressionWithSGDAlgorithm(val ap: AlgorithmParams)
       " and Preprator generates PreparedData correctly.")
   
     val reg = "--l2 " + ap.regParam
-    val iters = "-c -k --passes " + ap.maxIter
+    //val iters = "-c -k --passes " + ap.maxIter
     val lrate = "-l " + ap.stepSize
     val ngram = "--ngram " + ap.ngram 
   
-    val vw = new VW("--loss_function logistic -b " + ap.bitPrecision + " " + "-f " + ap.modelName + " " + reg + " " + iters + " " + lrate + " " + ngram)
+    val vw = new VW("--loss_function logistic --invert_hash readable.model -b " + ap.bitPrecision + " " + "-f " + ap.modelName + " " + reg + " " + lrate + " " + ngram)
     
     val inputs = for (point <- data.labeledPoints) yield (if (point.category.toDouble == 0.0) "-1.0" else "1.0") + " |" + ap.namespace + " "  + rawTextToVWFormattedString(point.text) 
     
